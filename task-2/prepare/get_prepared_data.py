@@ -25,8 +25,8 @@ def get_prepared_data():
     # labels
     labels = data[data.columns[-1]].unique()
 
-    # transform all records' columns values into numbers
-    columns = data.columns[1:]
+    # transform all records' columns values into numbers. if file exists, first column is index.
+    columns = data.columns[1:] if file_exists else data.columns
     for col in columns:
         data[col] = factorize(data[col])
 

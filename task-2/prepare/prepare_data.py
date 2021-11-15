@@ -24,6 +24,10 @@ def prepare_data():
     data.dropna(subset=['BORO_NM', 'VIC_RACE', 'PREM_TYP_DESC', 'VIC_AGE_GROUP',
                 'VIC_SEX', 'SUSP_AGE_GROUP', 'SUSP_RACE'], inplace=True)
 
-    # at least 1 mil rows should be left
+    data = data[data['SUSP_AGE_GROUP'].isin([
+        '<18', '18-24', '25-44', '45-64', '65+'])]
+
+    data = data[data['VIC_AGE_GROUP'].isin([
+        '<18', '18-24', '25-44', '45-64', '65+'])]
 
     return data
