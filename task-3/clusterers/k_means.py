@@ -7,15 +7,15 @@ from clusterers.clusterer import Clusterer
 class Kmeans(Clusterer, KMeans):
     name = "K-means"
 
-    def __init__(self, data):
+    def __init__(self, data, n_clusters):
         super().__init__(data)
 
-        n_clusters = 5
+        n_clusters = n_clusters
 
         n_init = 1
         n_init = n_init if n_init > 0 else 10
 
-        max_iter = 10
+        max_iter = 30
         max_iter = max_iter if max_iter > 0 else 300
         
         try:
