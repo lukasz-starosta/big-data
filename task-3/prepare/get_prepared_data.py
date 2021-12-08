@@ -15,7 +15,6 @@ def get_cleaned_data():
         dataframe = prepare_data()
         pd.DataFrame.to_csv(dataframe, DATA_PATH)
         return dataframe
-
     return pd.read_csv(DATA_PATH)
 
 
