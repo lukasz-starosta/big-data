@@ -3,6 +3,7 @@ import numpy
 from sklearn.model_selection import learning_curve
 from sklearn.metrics import ConfusionMatrixDisplay
 import matplotlib.pyplot as pyplot
+import warnings
 
 
 def get_accuracy(target_values, predicted_values, digits):
@@ -39,6 +40,7 @@ def get_recall(target_values, predicted_values, digits):
 
 
 def get_roc_curve_plot(model, test_data, target_values):
+    warnings.filterwarnings('ignore')
     roc_curve_plot = metrics.plot_roc_curve(
         model,
         test_data,
@@ -57,7 +59,7 @@ def print_confusion_matrix(target_values, predicted_values, model_label):
         predicted_values)
 
     disp = ConfusionMatrixDisplay(confusion_matrix=matrix, display_labels=[
-                                  'Male', 'Female'])
+                                  'Female', 'Male'])
     disp.plot()
     pyplot.savefig(f'conf {model_label}')
 
@@ -66,7 +68,7 @@ def print_metrics(target_values, predicted_values, digits):
     tn, fp, fn, tp = get_confusion_matrix(
         target_values, predicted_values).ravel()
 
-    metrics_names = ['Precision', 'Accuracy', 'Recall', 'Specifity']
+    metrics_names = ['Precision', 'Accuracy', 'Recall', 'Specificity']
     metrics_scores = [get_precision(target_values, predicted_values, digits),
                       get_accuracy(target_values, predicted_values, digits),
                       get_recall(target_values, predicted_values, digits),

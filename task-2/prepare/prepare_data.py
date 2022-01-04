@@ -10,7 +10,7 @@ def prepare_data():
         MAIN_DATAFILE_PATH, na_values=np.nan)
 
     # get only selected columns from the dataset
-    data = initial_data[['OFNS_DESC', 'LAW_CAT_CD', 'BORO_NM', 'PREM_TYP_DESC',
+    data = initial_data[['OFNS_DESC', 'PD_CD', 'LAW_CAT_CD', 'BORO_NM', 'PREM_TYP_DESC',
                          'SUSP_AGE_GROUP', 'SUSP_RACE', 'VIC_AGE_GROUP', 'VIC_RACE', 'VIC_SEX', 'SUSP_SEX']]
 
     # delete records which do not have suspect's sex defined - they provide no value

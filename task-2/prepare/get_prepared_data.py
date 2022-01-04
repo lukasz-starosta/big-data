@@ -14,7 +14,6 @@ def get_cleaned_data():
     if (not file_exists):
         dataframe = prepare_data()
         pd.DataFrame.to_csv(dataframe, DATA_PATH)
-        return dataframe
 
     return pd.read_csv(DATA_PATH)
 
