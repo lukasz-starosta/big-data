@@ -1,25 +1,38 @@
 from prepare.get_prepared_data import get_prepared_data
 from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB, MultinomialNB
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.naive_bayes import ComplementNB, MultinomialNB, GaussianNB
 from metrics.metrics import print_stats, get_roc_curve_plot, learning_curve_plot
 import matplotlib.pyplot as plt
-from sklearn.model_selection import RandomizedSearchCV
-import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.decomposition import PCA, IncrementalPCA
+from imblearn.over_sampling import SMOTE, ADASYN
+import numpy as np
+from imblearn.ensemble import BalancedRandomForestClassifier
+from sklearn.ensemble import HistGradientBoostingClassifier
+from imblearn.ensemble import BalancedBaggingClassifier
 
 data, labels = get_prepared_data()
 
 X = data.iloc[:, :-1]
 y = data['SUSP_SEX'].values
 
+
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, train_size=0.7, random_state=0, shuffle=True)
 
+# X_resampled, y_resampled = SMOTE().fit_resample(X_train, y_train)
+
 models = [
-    RandomForestClassifier(
-        n_estimators=350, min_samples_split=6, min_samples_leaf=6, max_depth=20, n_jobs=-1)
+    # GaussianNB(),
+    # MultinomialNB(),
+    # RandomForestClassifier(n_estimators=200, max_depth=20, n_jobs=-1),
+    BalancedRandomForestClassifier(n_estimators=200, max_depth=20, n_jobs=2),
+    BalancedBaggingClassifier(
+        base_estimator=HistGradientBoostingClassifier(random_state=42),
+        n_estimators=100,
+        random_state=42,
+        n_jobs=2,
+    )
 ]
 model_labels = [model.__class__.__name__ for model in models]
 
