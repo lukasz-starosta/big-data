@@ -30,6 +30,9 @@ X = data
 
 le = labelencoder = LabelEncoder()
 
+Z = X.head(500)
+print(Z)
+
 X = X.apply(le.fit_transform)
 
 X = X.head(500)

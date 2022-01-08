@@ -32,4 +32,5 @@ def prepare_data():
     data = data[data['VIC_AGE_GROUP'].isin([
         '<18', '18-24', '25-44', '45-64', '65+'])]
 
+
     return data
