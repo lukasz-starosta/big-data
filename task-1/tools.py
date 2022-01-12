@@ -43,8 +43,17 @@ def perform_regression(ds, name, degree, save):
         if not os.path.exists(path):
             os.makedirs(path)
 
+        final['date'] = final.apply(
+            lambda i: datetime.datetime.fromtimestamp(i['date']),
+            axis=1)
+
+        xs = []
+        for i in range(len(x)):
+            xs.append(datetime.datetime.fromtimestamp(x[i]))
+
+
         plt.plot(final['date'], final['value'], label="Data", color='b', alpha=.5)
-        plt.plot(x, y, label="Prediction", color='r', alpha=.7)
+        plt.plot(xs, y, label="Prediction", color='r', alpha=.7)
         plt.legend()
         plt.title(name)
         plt.savefig(path + "/" + name + "_" + str(degree) + "_" + str(mse) + ".jpg")
